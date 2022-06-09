@@ -49,7 +49,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
 
   }
 
-/*   async function changeBio(){
+  async function changeBio(){
     var userdataRef = doc(db, "users", session.user.tag);
     const docSnap = await getDoc(userdataRef);
 
@@ -59,16 +59,16 @@ function Profile({ trendingResults, followResults, providers, articles }) {
     const lastSeen = docSnap.data().lastSeen;
     const uid = session.user.uid;
     const picture = session.user.image;
-    const biografy = "Developer 👽";
-    const banner = session.user.banner;
-    const biolink = session.user.biolink;
+    const biografy = "I like cheese! is a joke...";
+    const banner = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblueeyesandbluebonnets.com%2Fwp-content%2Fuploads%2F2020%2F12%2F9691c1d64dceadee032af0a3b787c084-1024x683.jpg";
+    const biolink = "hi.world";
     const tag = session.user.tag;
 
 
     const docRef = doc(db, "users", session.user.tag);
     const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
-  } */
+  }
 
 
 
@@ -134,19 +134,22 @@ function Profile({ trendingResults, followResults, providers, articles }) {
         <div className="flex justify-end mr-3 mt-2">
         <div className="top-0 py-1.5 z-50 w-[120px] ">
         <div className="flex items-center justify-center py-[18px] border-gray border-[0.1px] p-3 rounded-full relative ">
-          <button onClick={saveData}
+          <button onClick={changeBio}
             className="bg-transparent inline-block placeholder-gray-500 font-bold outline-none text-[#d9d9d9] absolute inset-0 text-center border border-transparent w-full focus:border-[#ffffff] rounded-full focus:bg-black focus:shadow-lg"
 
           >
            Edit Profile
           </button>
         </div>
-        <div className="flex items-center justify-center py-[16px] p-3 rounded-full relative mr-4">
+
+{/* input change bio,etc */}
+
+{/*         <div className="flex items-center justify-center py-[16px] p-3 rounded-full relative mr-4">
           <input placeholder="type a bio"className="bg-transparent placeholder-gray-500 outline-none text-[#d9d9d9] inset-0 p-3 mt-2 absolute w-[7vw] h-[3vh] border border-transparent  border-[#ffffff] rounded-full focus:bg-black focus:shadow-lg" ref={bioinput} ></input>
           </div>
           <div className="flex items-center justify-center py-[16px] p-3 rounded-full relative mr-4">
           <input ref={linkinput} placeholder="type a website for bio"className="bg-transparent placeholder-gray-500 outline-none text-[#d9d9d9] inset-0 p-3 mt-2 absolute w-[7vw] h-[3vh] border border-transparent  border-[#ffffff] rounded-full focus:bg-black focus:shadow-lg" ></input>
-          </div>
+          </div> */}
         
       </div> 
         </div>
