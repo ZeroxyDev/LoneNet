@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn, getProviders, getSession, useSession  } from "next-auth/react";
 import Image from "next/image";
 import {
   HeartIcon as HeartIconFilled,
@@ -10,17 +10,90 @@ import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 import Link from "next/link";
-import { signup } from "../firebase"
-import { useRef } from "react";
+import { signup, useAuth, logout } from "../../firebase"
+import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDoc } from "firebase/firestore"
+import { db } from "../../firebase"
+import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 function Register({ providers }) {
 
+  const [ loading, setLoading] = useState(false);
+
   const emailRef = useRef();
   const passwordRef = useRef();
+  const usernameRef = useRef();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const currentUser = useAuth();
+  const [displayName, setDisplayName] = useState("Null");
+
+
+
+
+  useEffect(() => {
+    
+    if (currentUser){
+      saveData();
+    }
+    else{
+
+    }
+  }, []);  
+  
+  const saveData = async () => {
+    
+    const username = currentUser.email;
+    const displayName = usernameRef.current.value;
+    const createdAt = serverTimestamp();
+    const uid = currentUser.uid;
+    
+    const docRef = doc(db, "users", currentUser.uid);
+    const payload = { username, displayName, createdAt, uid }
+    await setDoc(docRef, payload);
+
+    router.push("/")
+
+  }
+
+  async function handleLogout(){
+    try{
+      await logout();
+      console.log("Sesión cerrada")
+
+    } catch{
+      console.log("Error cerrando sesión")
+    }
+  }
+
+
+  if (session || currentUser){
+/*     router.push("/") */
+    console.log(currentUser.uid)
+    console.log(currentUser.photoURL)
+
+
+  }
 
   async function handleSignup(){
-    await signup(emailRef.current.value, passwordRef.current.value);
+    
+    if (!currentUser){
+      try{
+        await signup(emailRef.current.value, passwordRef.current.value);
+        console.log("Cuenta creada")
+        saveData()
+  
+      } catch{
+        console.log("Error en la creacion")
+      }
+    }
+    else{
+      console.log("Persona logueada")
+    }
+    
+
   }
+
 
   return (
     
@@ -37,9 +110,12 @@ function Register({ providers }) {
           <div className="bg-[#ffffff] rounded-xl flex justify-center items-center w-[320px] h-[500px]">
             <div className=" text-black absolute -mt-5 text-center">
               <h1 className=" text-2xl font-medium mb-2">REGISTER</h1>
+              <button onClick={saveData}>Save data</button>
+              <button onClick={handleLogout}>logout</button>
+              <p className="text-black text-xl">{currentUser?.email}</p>
               <form className="text-white text-center mt-[20px]">   
               <input ref={emailRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Email" type="email"></input>     
-              <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
+              <input ref={usernameRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
               <input ref={passwordRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Password" type="password"></input>
               <button onClick={handleSignup} className="text-center m-auto mt-5 block py-1 bg-black w-[120px] text-white rounded-md transition-padding duration-300 ease-in-out hover:w-[180px]">REGISTER</button>
               <p className="text-black block text-xs mt-4">You have an account? - <Link href="/"><u className="inline-block font-semibold cursor-pointer">Login</u></Link></p>

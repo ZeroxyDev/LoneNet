@@ -107,7 +107,7 @@ function Input() {
       <img
         src={session.user.image}
         alt=""
-        className="h-11 w-11 rounded-full cursor-pointer"
+        className="h-11 w-11 rounded-full cursor-pointer object-cover "
         onClick={signOut}
       />
       <div className="divide-y divide-gray-700 w-full">
@@ -183,7 +183,7 @@ function Input() {
               disabled={!input && !selectedFile}
               onClick={sendPost}
             >
-              Tweet
+              Post
             </button>
           </div>
         )}
