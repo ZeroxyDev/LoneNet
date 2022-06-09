@@ -91,7 +91,7 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
         <Widgets
           trendingResults={trendingResults}
           followResults={followResults}
-/*           articles={articles} */
+          articles={articles}
         />
 
         {isOpen && <Modal />}
@@ -119,7 +119,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       session,
-/*       articles: results.articles, */
+      articles: results.articles,
       followResults,
       providers,
     },

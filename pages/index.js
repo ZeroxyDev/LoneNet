@@ -25,7 +25,7 @@ export default function Home({ trendingResults, followResults, providers, articl
 
       <Header />
 
-      <main className="bg-[#000] sm:min-h-[100vh] min-h-[91vh]  flex max-w-[1500px] mx-auto">
+      <main className="bg-[#000] sm:min-h-[100vh] flex max-w-[1500px] mx-auto">
         <Sidebar />
         <Feed />
         <Widgets
@@ -49,14 +49,14 @@ export async function getServerSideProps(context) {
   
 
   // Get Google News API
-/*   const results = await fetch(
+  const results = await fetch(
     `https://newsapi.org/v2/top-headlines?country=us&apiKey=007dcd42690848ef90a5a3e94774f5d9`
-  ).then((res) => res.json()); */
+  ).then((res) => res.json());
 
   return {
     props: {
       session,
-/*       articles: results.articles, */
+      articles: results.articles,
       followResults,
       providers,
     },

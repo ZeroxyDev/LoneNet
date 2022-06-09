@@ -101,7 +101,7 @@ import {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header/>
-        <main className="bg-black min-h-[100vh] flex max-w-[1402px] mx-auto">
+        <main className="bg-[#000] min-h-[100vh] flex max-w-[1500px] mx-auto">
           <Sidebar />
           <div className="flex-grow border-l border-r border-gray-700 max-w-2x1 sm:ml-[73px] xl:ml-[370px]">
           <div>
@@ -199,7 +199,7 @@ import {
           <Widgets
             trendingResults={trendingResults}
             followResults={followResults}
-  /*           articles={articles} */
+            articles={articles}
           />
   
           {isOpen && <Modal />}
@@ -227,7 +227,7 @@ import {
     return {
       props: {
         session,
-  /*       articles: results.articles, */
+        articles: results.articles,
         followResults,
         providers,
       },
