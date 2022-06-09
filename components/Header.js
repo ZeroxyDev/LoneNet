@@ -60,6 +60,7 @@ let veri2 = checkVerified()
           src={session.user.image}
           alt=""
           className="h-8 w-8 rounded-full md:mr-2.5"
+          onClick={() => router.push(`/profile`)}
         />
         <div className="hidden lg:inline leading-5">
           <h4 className="font-bold">{session.user.name} {veri2} <p className="inline font-normal text-[#6e767d]">@{session.user.tag}</p> </h4>
