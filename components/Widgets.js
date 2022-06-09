@@ -48,7 +48,7 @@ function Widgets({ articles, followResults}) {
         <div className="dark:bg-[#1D2226] w-12/12 h-64 py-1.5 px-2.5 rounded-xl sticky border border-none dark:border-none object-cover">
         <div className="relative w-full h-full">
           <Image
-            src="https://rb.gy/kbfeaa"
+            src="https://rb.gy/mekybv"
             layout="fill"
             objectFit="cover"
             priority

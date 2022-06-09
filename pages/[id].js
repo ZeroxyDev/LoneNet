@@ -127,7 +127,7 @@ import {
           <img
           src={profile?.picture}
           alt=""
-          className="sm:h-32 sm:w-32 h-26 w-26 absolute sm:-mt-16 -mt-12 ml-6 object-cover rounded-full md:mr-2.5 border-4 border-black"
+          className="sm:h-36 sm:w-36 h-32 w-32  absolute sm:-mt-24 -mt-20  sm:ml-6 ml-4 mb-2 object-cover rounded-full md:mr-2.5 border-4 border-black"
         />
         <div className="flex justify-end mr-3 mt-2">
         <div className="top-0 py-1.5 z-50 w-[120px] ">
