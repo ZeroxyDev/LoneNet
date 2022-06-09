@@ -20,7 +20,6 @@ import Comment from "../../components/Comment";
 import Head from "next/head";
 import Register from "../../components/Register";
 import Header from "../../components/Header";
-import Chat from "../Chat";
 
 
 
