@@ -27,30 +27,79 @@ function Register({ providers }) {
   const router = useRouter();
   const currentUser = useAuth();
   const [displayName, setDisplayName] = useState("Null");
+  const [userId, setUserId] = useState();
 
-
-
-
-  useEffect(() => {
-    
+  async function checkinfo(){
     if (currentUser){
-      saveData();
+      var userdataRef = doc(db, "users", currentUser.email);
+      const docSnap = await getDoc(userdataRef);
+    
+      currentUser.name = docSnap.data().displayName;
+      currentUser.email = docSnap.data().email;
+      currentUser.pic = docSnap.data().picture;
+      currentUser.bio = docSnap.data().biografy;
+      currentUser.lastseen = docSnap.data().lastSeen.toDate();
+      currentUser.banner = docSnap.data().banner;
+      currentUser.link = docSnap.data().biolink;
+      currentUser.tag = docSnap.data().tag;
     }
     else{
 
+      alert("No log")
     }
-  }, []);  
+  }
+
+
+  /* useEffect(() => {
+    
+    checkinfo();
+    
+    async function checkinfo(){
+      if (currentUser){
+        var userdataRef = doc(db, "users", currentUser?.email);
+        const docSnap = await getDoc(userdataRef);
+      
+        currentUser.name = docSnap.data().displayName;
+        currentUser.email = docSnap.data().email;
+        currentUser.pic = docSnap.data().picture;
+        currentUser.bio = docSnap.data().biografy;
+        currentUser.lastseen = docSnap.data().lastSeen.toDate();
+        currentUser.banner = docSnap.data().banner;
+        currentUser.link = docSnap.data().biolink;
+        currentUser.tag = docSnap.data().tag;
+      }
+      else{
   
+        alert("No log")
+      }
+    }
+
+  }, []);  
+   */
   const saveData = async () => {
     
-    const username = currentUser.email;
-    const displayName = usernameRef.current.value;
-    const createdAt = serverTimestamp();
-    const uid = currentUser.uid;
+    currentUser.pic = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.drupal.org%2Ffiles%2Fprofile_default.jpg&f=1&nofb=1"
+    currentUser.bio = ""
+    currentUser.banner = ""
+    currentUser.link = ""
+    currentUser.tag = usernameRef.current.value;
+
     
-    const docRef = doc(db, "users", currentUser.uid);
-    const payload = { username, displayName, createdAt, uid }
+    const email = currentUser.email;
+    const displayName = usernameRef.current.value;
+    const lastSeen = serverTimestamp();
+    const uid = currentUser.uid;
+    const picture =  currentUser.pic;
+    const biografy = currentUser.bio;
+    const banner = currentUser.pic;
+    const biolink = currentUser.link;
+    const tag = usernameRef.current.value;
+
+
+    const docRef = doc(db, "users", currentUser?.email);
+    const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
+    
 
     router.push("/")
 
@@ -69,8 +118,6 @@ function Register({ providers }) {
 
   if (session || currentUser){
 /*     router.push("/") */
-    console.log(currentUser.uid)
-    console.log(currentUser.photoURL)
 
 
   }
@@ -94,6 +141,36 @@ function Register({ providers }) {
 
   }
 
+  //saber los tags de los usuarios
+/*   useEffect(
+    () =>
+      onSnapshot(collection(db, "users"), (snapshot) => {
+        setUserId(snapshot.docs.map((doc) => (doc.id)));
+      }),
+    [db, userId]
+  );
+   
+  const withoutNumbers = JSON.stringify(userId);
+
+  //funcion para check de users
+
+  function checkUsertag(){
+    
+    if (withoutNumbers.includes(session.user.tag)){
+      handleSignup()
+      return ("algo");
+    }
+   else {
+
+      return ("algo");
+    }
+  } */
+
+/*   console.log(console.log(withoutNumbers)) */
+
+
+  //acaba la funcion
+
 
   return (
     
@@ -111,6 +188,7 @@ function Register({ providers }) {
             <div className=" text-black absolute -mt-5 text-center">
               <h1 className=" text-2xl font-medium mb-2">REGISTER</h1>
               <button onClick={saveData}>Save data</button>
+              <button onClick={checkinfo}>check</button>
               <button onClick={handleLogout}>logout</button>
               <p className="text-black text-xl">{currentUser?.email}</p>
               <form className="text-white text-center mt-[20px]">   

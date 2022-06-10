@@ -22,7 +22,7 @@ function Widgets({ articles, followResults}) {
 
       <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 rounded-xl w-11/12 xl:w-9/12 ">
         <h4 className="font-bold text-xl px-4">What's happening</h4>
-        {articles.slice(0, 5).map((article) => (
+{/*         {articles.slice(0, 5).map((article) => (
        <div
        key={article.url}
        className="flex space-x-2 items-center cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 px-2.5 py-1"
@@ -38,7 +38,7 @@ function Widgets({ articles, followResults}) {
          />
       </div>
   </div>
-  ))}
+  ))} */}
 {/*         <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#ffffff] font-light">
           Show more
         </button> */}
