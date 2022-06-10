@@ -61,14 +61,6 @@ import {
       }
     }
 
-    useEffect(
-        () =>
-          onSnapshot(doc(db, "posts", id), (snapshot) => {
-            setPost(snapshot.data());
-          }),
-        [db]
-      );
-
 
     useEffect(
       () =>
@@ -78,16 +70,36 @@ import {
       [db]
     );
 
-    useEffect(
-        () =>
-          onSnapshot(
-            query(collection(db, "posts", id, "posts"), orderBy("timestamp", "desc")),
-            (snapshot) => {
-              setPosts(snapshot.docs);
-            }
-          ),
-        [db]
-      );
+    const isLog = profile?.uid;
+    const noLog = session.user.uid;
+
+    if(profile){
+      checkProfile()
+    }
+
+
+    function checkProfile(){
+      if(profile){
+        onSnapshot(
+          query(collection(db, "posts", profile.uid, "userposts"), orderBy("timestamp", "desc")),
+          (snapshot) => {
+            setPosts(snapshot.docs);
+          }
+        )
+        console.log("leido profile")
+        return (isLog);
+  
+      }
+      else{
+        console.log("no leido profile")
+        return (noLog);
+
+      }
+    }
+
+
+    
+
 
   
     if (!session) return <Register providers={providers} />;

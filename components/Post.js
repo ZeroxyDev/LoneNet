@@ -280,6 +280,7 @@ function checkVerified(){
               onClick={(e) => {
                 e.stopPropagation();
                 deleteDoc(doc(db, "posts", id));
+                deleteDoc(doc(db, "posts", session.user.uid, "userposts", id));
                 router.push("/");
               }}
             >
